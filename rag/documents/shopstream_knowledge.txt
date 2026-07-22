@@ -1,0 +1,10 @@
+ShopStream is a retail data engineering pipeline.
+The pipeline receives online retail transactions through Apache Kafka.
+Each transaction contains an invoice number, stock code, description, quantity, invoice date, unit price, customer ID, and country.
+Pydantic validates incoming transactions. Invalid records are stored in a quarantine area.
+Valid records are stored in the Bronze layer using Delta Lake.
+The Silver layer cleans the records, calculates the total amount, removes duplicates, and applies merge operations.
+The Gold layer aggregates retail data by country.
+Great Expectations checks data quality in the Silver layer.
+OpenLineage records pipeline lineage events.
+Apache Airflow orchestrates the Silver transformation, data quality check, and Gold aggregation tasks.

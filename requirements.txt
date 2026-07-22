@@ -5,3 +5,4 @@ deltalake
 pyarrow
 great_expectations
 openlineage-python
+chromadb
