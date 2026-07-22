@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pandas as pd
+from deltalake import write_deltalake
 from kafka import KafkaConsumer
 from pydantic import ValidationError
 
@@ -8,6 +10,7 @@ from schema import RetailTransaction
 
 
 KAFKA_TOPIC = "retail-transactions"
+BRONZE_PATH = Path("data/bronze/retail_transactions")
 QUARANTINE_FILE = Path("data/quarantine/kafka_invalid_records.jsonl")
 
 
@@ -22,18 +25,22 @@ consumer = KafkaConsumer(
 )
 
 
-valid_count = 0
+valid_records = []
 invalid_count = 0
 
 QUARANTINE_FILE.parent.mkdir(parents=True, exist_ok=True)
+BRONZE_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 
 for message in consumer:
     try:
         transaction = RetailTransaction(**message.value)
 
+        valid_records.append(
+            transaction.model_dump(mode="json")
+        )
+
         print("Valid transaction:", transaction.invoice_no)
-        valid_count += 1
 
     except ValidationError as error:
         invalid_record = {
@@ -49,6 +56,17 @@ for message in consumer:
 
 consumer.close()
 
+
+if valid_records:
+    bronze_df = pd.DataFrame(valid_records)
+
+    write_deltalake(
+        str(BRONZE_PATH),
+        bronze_df,
+        mode="append",
+    )
+
+
 print("Consumer completed.")
-print("Valid records:", valid_count)
+print("Valid records saved to Bronze:", len(valid_records))
 print("Invalid records:", invalid_count)

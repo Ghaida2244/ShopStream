@@ -1,3 +1,5 @@
 pandas
 pydantic
 kafka-python
+deltalake
+pyarrow

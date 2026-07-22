@@ -12,3 +12,5 @@ data/quarantine/
 
 # VS Code settings
 .vscode/
+
+data/bronze/
