@@ -18,3 +18,11 @@ data/silver/
 data/gold/
 
 data/lineage/
+
+# Airflow generated files
+airflow/logs/
+airflow/config/
+airflow/plugins/
+
+# ChromaDB generated database
+rag/chroma_db/
