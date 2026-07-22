@@ -14,8 +14,9 @@ QUARANTINE_FILE = Path("data/quarantine/kafka_invalid_records.jsonl")
 consumer = KafkaConsumer(
     KAFKA_TOPIC,
     bootstrap_servers="localhost:9092",
+    group_id="shopstream-consumer-group",
     auto_offset_reset="earliest",
-    enable_auto_commit=False,
+    enable_auto_commit=True,
     value_deserializer=lambda value: json.loads(value.decode("utf-8")),
     consumer_timeout_ms=5000,
 )
