@@ -115,6 +115,7 @@ try:
         gx.expectations.ExpectColumnToExist(
             column="total_amount"
         ),
+       
     ]
 
     all_checks_passed = True
