@@ -55,9 +55,26 @@ for _, row in df.head(10).iterrows():
         print("Invalid transaction:", error)
 
 
+invalid_transaction = {
+    "invoice_no": "TEST-INVALID",
+    "stock_code": "TEST",
+    "description": "Invalid test record",
+    "quantity": 1,
+    "invoice_date": "2010-12-01 08:26:00",
+    "unit_price": -5.0,
+    "customer_id": None,
+    "country": "United Kingdom",
+}
+
+producer.send(
+    KAFKA_TOPIC,
+    value=invalid_transaction,
+)
+
+
 producer.flush()
 producer.close()
 
 print("Producer completed.")
-print("Records sent:", sent_count)
-print("Invalid records:", invalid_count)
+print("Valid records sent:", sent_count)
+print("Invalid test record sent: 1")
