@@ -3,3 +3,4 @@ pydantic
 kafka-python
 deltalake
 pyarrow
+great_expectations
