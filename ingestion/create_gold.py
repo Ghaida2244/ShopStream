@@ -28,6 +28,7 @@ write_deltalake(
     str(GOLD_PATH),
     gold_df,
     mode="overwrite",
+    schema_mode="overwrite",
 )
 
 
