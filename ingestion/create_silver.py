@@ -20,6 +20,16 @@ silver_df["total_amount"] = (
     silver_df["quantity"] * silver_df["unit_price"]
 )
 
+merge_keys = [
+    "invoice_no",
+    "stock_code",
+    "invoice_date",
+]
+
+silver_df = silver_df.drop_duplicates(
+    subset=merge_keys,
+    keep="last",
+)
 
 SILVER_PATH.parent.mkdir(parents=True, exist_ok=True)
 

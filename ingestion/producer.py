@@ -53,7 +53,27 @@ for _, row in df.head(10).iterrows():
     except ValidationError as error:
         invalid_count += 1
         print("Invalid transaction:", error)
+        
 
+new_transaction = {
+    "invoice_no": "NEW-1001",
+    "stock_code": "NEW01",
+    "description": "New test product",
+    "quantity": 3,
+    "invoice_date": "2011-12-10 10:00:00",
+    "unit_price": 15.0,
+    "customer_id": 99999,
+    "country": "Saudi Arabia",
+}
+
+validated_new_transaction = RetailTransaction(**new_transaction)
+
+producer.send(
+    KAFKA_TOPIC,
+    value=validated_new_transaction.model_dump(mode="json"),
+)
+
+sent_count += 1
 
 invalid_transaction = {
     "invoice_no": "TEST-INVALID",
