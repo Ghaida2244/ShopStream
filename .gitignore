@@ -3,8 +3,9 @@ __pycache__/
 *.pyc
 .venv/
 
-# Large local data files
+# Local data files
 data/raw/
+data/quarantine/
 
 # Environment variables
 .env

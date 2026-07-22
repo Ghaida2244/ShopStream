@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class RetailTransaction(BaseModel):
@@ -9,6 +9,6 @@ class RetailTransaction(BaseModel):
     description: str | None
     quantity: int
     invoice_date: datetime
-    unit_price: float
+    unit_price: float = Field(ge=0)
     customer_id: float | None
     country: str
