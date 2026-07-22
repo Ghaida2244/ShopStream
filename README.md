@@ -32,3 +32,45 @@ June 2026
 ## Current Progress
 
 Project setup completed.
+
+## Project Overview
+
+ShopStream is a retail data engineering pipeline.
+
+The system:
+
+- Receives retail data using Apache Kafka
+- Validates records using Pydantic
+- Stores invalid records in quarantine
+- Stores valid records in the Bronze layer
+- Cleans and transforms data in the Silver layer
+- Checks data quality using Great Expectations
+- Creates summary data in the Gold layer
+- Uses Apache Airflow to run the pipeline
+- Uses ChromaDB for semantic search
+
+## Technologies
+
+- Python
+- Kafka
+- Airflow
+- Docker
+- Delta Lake
+- Great Expectations
+- OpenLineage
+- ChromaDB
+
+## Pipeline
+
+```text
+Kafka
+  ↓
+Validation
+  ↓
+Bronze
+  ↓
+Silver
+  ↓
+Quality Check
+  ↓
+Gold
